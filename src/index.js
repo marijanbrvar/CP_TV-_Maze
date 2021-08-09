@@ -1,3 +1,5 @@
 import './style.css';
+import Data from './classes/data';
 
-console.log('Webpack work');
+const data = new Data();
+data.init();
