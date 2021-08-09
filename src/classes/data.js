@@ -3,17 +3,15 @@ export default class Data {
     this.list = [];
   }
 
-  async getData() {
-    const response = await fetch('https://api.tvmaze.com/shows', {
-      method: 'GET',
-    });
+  getData = async () => {
+    const response = await fetch('https://api.tvmaze.com/shows');
 
     const data = await response.json();
     return data;
   }
 
-  async init() {
-    const data = getData();
+  init = async () => {
+    const data = await this.getData();
     this.list.push(data);
   }
 }
