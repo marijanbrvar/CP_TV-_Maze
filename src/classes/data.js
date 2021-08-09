@@ -4,7 +4,7 @@ export default class Data {
   }
 
   getData = async () => {
-    const response = await fetch('https://api.tvmaze.com/shows');
+    const response = await fetch('https://api.tvmaze.com/shows?per_page=6');
 
     const data = await response.json();
     return data;
