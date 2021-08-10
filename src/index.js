@@ -1,5 +1,6 @@
 import './style.css';
 import Store from './classes/api';
+import postData from './postlikes';
 
 const store = new Store();
 const main = document.querySelector('#card-list');
@@ -17,24 +18,23 @@ const renderUi = async (data) => {
 
   const newdata = data.map((item) => {
     const {
-      id, image, name, language,
+      id, image, name, genres, language,
     } = item;
     return `
     <section class="col">
     <div class="card" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
-       <div class="d-flex flex-row bd-highlight mb-2 justify-content-between">
-        <h5 class="card-title fs-6">${name} ${id}</h5>
-        <div class="d-flex flex-column bd-highlight mb-3">
-        <i class="bi bi-heart"></i>
-        <p><span class='countlikes'></span><span>likes</span></p>
-        </div>
+        <h5 class="card-title">${name} ${id}</h5>
+        <div class="d-flex flex-row bd-highlight mb-2 justify-content-between">
+        <i class="bi bi-translate">${language}</i>
+        <i class="bi bi-heart countlikes" id=${id}>11</i>
        </div>
       </div>
-      <p>
-      <p class="px-3 bg-light border">Language: ${language}</p>
-      <button type="button" class="btn btn-secondary">comment</button>
+      <p class=' bg-light border'>Genres: ${genres
+    .map((genre) => genre)
+    .join(', ')}</p>
+      <button type="button" class="btn btn-secondary">comment<i class="comment">(11)</i></button>
     </div>
     </section>`;
   }).join('');
@@ -51,11 +51,15 @@ const initLoad = async () => {
 
 initLoad();
 
-// like click event
-const clicklike = document.querySelector('countlikes');
-const heart = document.querySelector('bi-heart');
-const myfunction = () => {
-  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
-};
+// click likes
+// const clicklike = document.querySelector('countlikes');
+// const heart = document.querySelector('bi-heart');
+const card = document.querySelector('#id');
+let count = 0;
 
-heart.addEventListener('click', myfunction);
+card.addEventListener('click', (ev) => {
+  if (ev.target.id === card.id) {
+    count += 1;
+  }
+  return count;
+});
