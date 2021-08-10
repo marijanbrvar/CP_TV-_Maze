@@ -4,6 +4,12 @@ import Store from './classes/api';
 const store = new Store();
 const main = document.querySelector('#card-list');
 const modal = document.querySelector('#modal');
+const counter = document.querySelector('#counter');
+
+const updateCouner = async (data) => {
+  if (data.length === 0) return 0;
+  return data.length;
+};
 
 const renderUi = async (data) => {
   while (main.firstChild) {
@@ -11,19 +17,36 @@ const renderUi = async (data) => {
   }
 
   const newdata = data.map((item) => {
-    const { id, image, name } = item;
-    return `
-    <div class="col">
+    const {
+      id, image, name, language,
+    } = item;
+
+    const html = `
+    <section class="col">
     <div class="card" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">${name}</h5>
+        <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
+        <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
+        <i class="bi bi-heart">11</i>
+        <a type="button" class="btn btn-ligth" data-bs-toggle="modal" data-bs-target="#modal" " data-id="${item}">
+          <i class="bi bi-chat-left">
+          <span class="text-muted fs-6 fw-bolder ms-1" id="coments-count">2</span>
+          </i>
+        </a>
       </div>
-      <a type="button" class="btn btn-ligth btn-sm" data-bs-toggle="modal" data-bs-target="#modal" " data-id="${item}">Comment</a>
+      <div class="card-footer">
+       <ul id="genre">
+       </ul>
+      </div>
     </div>
-    </div>`;
+    </section>`;
+    return html;
   }).join('');
   main.innerHTML = newdata;
+
+  const count = await updateCouner(data);
+  counter.innerText = count;
 };
 
 const initLoad = async () => {
@@ -36,3 +59,12 @@ modal.addEventListener('shown.bs.modal', (e) => {
 });
 
 initLoad();
+
+// like click event
+const clicklike = document.querySelector('countlikes');
+const heart = document.querySelector('bi-heart');
+const myfunction = () => {
+  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
+};
+
+heart.addEventListener('click', myfunction);
