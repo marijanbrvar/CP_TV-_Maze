@@ -3,6 +3,12 @@ import Store from './classes/api';
 
 const store = new Store();
 const main = document.querySelector('#card-list');
+const counter = document.querySelector('#counter');
+
+const updateCouner = async (data) => {
+  if (data.length === 0) return 0;
+  return data.length;
+};
 
 const renderUi = async (data) => {
   while (main.firstChild) {
@@ -22,6 +28,9 @@ const renderUi = async (data) => {
     </div>`;
   }).join('');
   main.innerHTML = newdata;
+
+  const count = await updateCouner(data);
+  counter.innerText = count;
 };
 
 const initLoad = async () => {
