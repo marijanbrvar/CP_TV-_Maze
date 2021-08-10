@@ -49,6 +49,10 @@ const renderUi = async (data) => {
   counter.innerText = count;
 };
 
+const renderGenre = () => {
+  
+};
+
 const initLoad = async () => {
   const res = await store.getData();
   renderUi(res);
