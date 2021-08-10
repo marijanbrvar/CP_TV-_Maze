@@ -1,7 +1,8 @@
 import './style.css';
 import Store from './classes/api';
-import postData from './postlikes';
+import Involvement from './classes/involvement';
 
+const involvement = new Involvement();
 const store = new Store();
 const main = document.querySelector('#card-list');
 const counter = document.querySelector('#counter');
