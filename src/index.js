@@ -29,7 +29,6 @@ const renderUi = async (data) => {
 const initLoad = async () => {
   const res = await store.getData();
   renderUi(res);
-  // return res;
 };
 
 initLoad();
