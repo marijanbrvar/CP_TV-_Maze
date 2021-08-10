@@ -16,7 +16,7 @@ const renderUi = async (data) => {
     <div class="card" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">${name}</h5>
+        <h5 class="card-title">${name} ${id}</h5>
       </div>
     </div>
     </div>`;
