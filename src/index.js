@@ -56,15 +56,16 @@ initLoad();
 // click likes
 const like = document.querySelector('countlikes');
 const card = document.querySelector('#id');
-let count = 0;
+
+const displayLikes = async () => {
+  await involvement.getLikes();
+  like.innerHTML = involvement.listData.join('');
+};
 
 card.addEventListener('click', (ev) => {
   if (ev.target.id === card.id) {
     const itemId = ev.target.id;
-    count += 1;
-    Involvement.postLikes(itemId);
+    postLikes(itemId);
+    displayLikes();
   }
-  return count;
 });
-
-like.innerHTML = count;
