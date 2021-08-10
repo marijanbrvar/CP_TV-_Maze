@@ -4,9 +4,8 @@ export default class Api {
   }
 
   async getData() {
-    const res = await fetch(this.url, { method: 'GET' });
+    const res = await fetch(`${this.url}`, { method: 'GET' });
     const data = await res.json();
-
-    return data;
+    return data.slice(0, 12);
   }
 }

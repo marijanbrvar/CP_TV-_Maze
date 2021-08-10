@@ -2,7 +2,7 @@ import './style.css';
 import Store from './classes/api';
 
 const store = new Store();
-const main = document.querySelector('MAIN');
+const main = document.querySelector('#card-list');
 
 const renderUi = async (data) => {
   while (main.firstChild) {
@@ -10,18 +10,16 @@ const renderUi = async (data) => {
   }
 
   const newdata = data.map((item) => {
-    const { id, image } = item;
-    return (`
-      <div class ='image'>
-        <img src='${image.medium}' alt='image'>
-        <div class='info'>
-          <p class ='title'>Space ${id}</p>
-          <div class='likes>
-            <span class="material-icons-sharp">favorite_border</span>
-            <span class='like'>likes</span>
-          </div>
-        </div>
-      </div>`);
+    const { id, image, name } = item;
+    return `
+    <div class="col">
+    <div class="card" id=${id}>
+      <img src="${image.medium}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">${name}</h5>
+      </div>
+    </div>
+    </div>`;
   }).join('');
   main.innerHTML = newdata;
 };
