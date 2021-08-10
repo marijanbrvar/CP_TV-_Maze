@@ -3,7 +3,7 @@ export default class Api {
     this.url = 'https://api.tvmaze.com/shows';
   }
 
-  async getData() {
+  async getShows() {
     const res = await fetch(`${this.url}`, { method: 'GET' });
     const data = await res.json();
     return data.slice(0, 6);

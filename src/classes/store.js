@@ -3,23 +3,19 @@ import Involvement from './involvement';
 
 export default class Store {
   constructor() {
+    this.shows = [];
     this.api = new Api();
     this.involvment = new Involvement();
   }
 
-  async init() {
-    await this.getData();
-  }
+  async getData() {
+    const data = await this.api.getShows();
 
-  getData = async () => {
-    const data = await this.api.getData();
-
-    return data;
+    this.shows = data;
   }
 
   getInvolvement = async (endpoint) => {
     const data = await this.involvment.getData(endpoint);
-
     return data;
   }
 }

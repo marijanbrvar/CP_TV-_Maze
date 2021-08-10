@@ -52,26 +52,25 @@ const renderUi = async (data) => {
   counter.innerText = count;
 };
 
-const renderGenre = () => {
-  
-};
-
 const initLoad = async () => {
-  const res = await store.getData();
-  renderUi(res);
+  await dataStore.getData();
+
+  renderUi(dataStore.shows);
 };
 
 modal.addEventListener('shown.bs.modal', (e) => {
-  console.log(e.relatedTarget.dataset.id);
+  const currentShowId = e.relatedTarget.dataset.id;
+  const show = dataStore.shows.filter((item) => item.id === parseInt(currentShowId, 10))[0];
+  modalData.renderModal(show);
 });
 
 initLoad();
 
 // like click event
-const clicklike = document.querySelector('countlikes');
-const heart = document.querySelector('bi-heart');
-const myfunction = () => {
-  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
-};
+// const clicklike = document.querySelector('countlikes');
+// const heart = document.querySelector('bi-heart');
+// const myfunction = () => {
+//   clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
+// };
 
-heart.addEventListener('click', myfunction);
+// heart.addEventListener('click', myfunction);
