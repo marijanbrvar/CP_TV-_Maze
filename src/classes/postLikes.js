@@ -8,8 +8,8 @@ const postLikes = (itemid) => {
     headers: {
       'Content-type': 'application/json',
     }
-      .then((response) => response.json())
-      .then((data) => console.log('Sucess:', data)),
+      .then((response) => response.json()),
+    // .then((params) => console.log('Sucess:', params)),
   });
 };
 

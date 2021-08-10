@@ -44,7 +44,23 @@ const renderUi = async (data) => {
 
   const count = await updateCouner(data);
   counter.innerText = count;
+  const like = document.querySelector('.countlikes');
+  const card = document.querySelector('.card');
+
+  const displayLikes = async () => {
+    await involvement.getLikes();
+    like.innerHTML = involvement.listData.join('');
+  };
+  card.addEventListener('click', (ev) => {
+    if (ev.target.id === card.id) {
+      const itemId = ev.target.id;
+      postLikes(itemId);
+      displayLikes();
+    }
+  });
 };
+
+involvement.getLikes();
 
 const initLoad = async () => {
   const res = await store.getData();
@@ -54,18 +70,18 @@ const initLoad = async () => {
 initLoad();
 
 // click likes
-const like = document.querySelector('countlikes');
-const card = document.querySelector('#id');
+// const like = document.querySelector('.countlikes');
+// const card = document.querySelector('.card');
 
-const displayLikes = async () => {
-  await involvement.getLikes();
-  like.innerHTML = involvement.listData.join('');
-};
+// const displayLikes = async () => {
+//   await involvement.getLikes();
+//   like.innerHTML = involvement.listData.join('');
+// };
 
-card.addEventListener('click', (ev) => {
-  if (ev.target.id === card.id) {
-    const itemId = ev.target.id;
-    postLikes(itemId);
-    displayLikes();
-  }
-});
+// card.addEventListener('click', (ev) => {
+//   if (ev.target.id === card.id) {
+//     const itemId = ev.target.id;
+//     postLikes(itemId);
+//     displayLikes();
+//   }
+// });

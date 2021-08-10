@@ -15,7 +15,8 @@ export default class Involvement {
     })
       .then((response) => response.json())
       .then((json) => {
-        this.likeData = json.likes;
+        this.likeData = json;
+        console.log(json);
       });
   }
 }
