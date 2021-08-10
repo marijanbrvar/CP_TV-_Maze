@@ -1,14 +1,15 @@
 import './style.css';
-import Data from './classes/data';
+import Store from './classes/api';
 
-const data = new Data();
-data.init();
-
-console.log(data.list);
-
+const store = new Store();
 const main = document.querySelector('MAIN');
 
-const displayItems = (data) => {
+const renderUi = async (data) => {
+  while (main.firstChild) {
+    main.removeChild(main.firstChild);
+  }
+
+  // eslint-disable-next-line array-callback-return
   const newdata = data.map((item) => {
     const { id, image } = item;
     return `<div class ='image'>
@@ -26,4 +27,10 @@ favorite_border</span>
   main.innerHTML = newdata;
 };
 
-displayItems(data.list);
+const initLoad = async () => {
+  const res = await store.getData();
+  renderUi(res);
+  // return res;
+};
+
+initLoad();
