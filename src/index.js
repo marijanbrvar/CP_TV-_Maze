@@ -23,7 +23,7 @@ const renderUi = async (data) => {
     const {
       id, image, name, language,
     } = item;
-    modalData.renderModal(id);
+    modalData.renderModal(item);
     const html = `
     <section class="col">
     <div class="card" id=${id}>

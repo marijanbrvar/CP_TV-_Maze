@@ -6,6 +6,6 @@ export default class Api {
   async getShows() {
     const res = await fetch(`${this.url}`, { method: 'GET' });
     const data = await res.json();
-    return data.slice(0, 6);
+    return data.slice(0, 12);
   }
 }
