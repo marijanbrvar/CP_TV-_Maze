@@ -16,16 +16,27 @@ const renderUi = async (data) => {
   }
 
   const newdata = data.map((item) => {
-    const { id, image, name } = item;
+    const {
+      id, image, name, language,
+    } = item;
     return `
-    <div class="col">
+    <section class="col">
     <div class="card" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">${name} ${id}</h5>
+       <div class="d-flex flex-row bd-highlight mb-2 justify-content-between">
+        <h5 class="card-title fs-6">${name} ${id}</h5>
+        <div class="d-flex flex-column bd-highlight mb-3">
+        <i class="bi bi-heart"></i>
+        <p><span class='countlikes'></span><span>likes</span></p>
+        </div>
+       </div>
       </div>
+      <p>
+      <p class="px-3 bg-light border">Language: ${language}</p>
+      <button type="button" class="btn btn-secondary">comment</button>
     </div>
-    </div>`;
+    </section>`;
   }).join('');
   main.innerHTML = newdata;
 
@@ -39,3 +50,12 @@ const initLoad = async () => {
 };
 
 initLoad();
+
+// like click event
+const clicklike = document.querySelector('countlikes');
+const heart = document.querySelector('bi-heart');
+const myfunction = () => {
+  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
+};
+
+heart.addEventListener('click', myfunction);
