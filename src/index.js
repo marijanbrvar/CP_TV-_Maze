@@ -1,6 +1,7 @@
 import './style.css';
 import Store from './classes/api';
 import Involvement from './classes/involvement';
+import postLikes from './classes/postLikes';
 
 const involvement = new Involvement();
 const store = new Store();
@@ -53,14 +54,17 @@ const initLoad = async () => {
 initLoad();
 
 // click likes
-// const clicklike = document.querySelector('countlikes');
-// const heart = document.querySelector('bi-heart');
+const like = document.querySelector('countlikes');
 const card = document.querySelector('#id');
 let count = 0;
 
 card.addEventListener('click', (ev) => {
   if (ev.target.id === card.id) {
+    const itemId = ev.target.id;
     count += 1;
+    Involvement.postLikes(itemId);
   }
   return count;
 });
+
+like.innerHTML = count;
