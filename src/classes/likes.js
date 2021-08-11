@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Store from './store';
 
 export default class Like {
