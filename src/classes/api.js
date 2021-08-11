@@ -1,11 +1,19 @@
+/* eslint-disable class-methods-use-this */
 export default class Api {
-  constructor() {
-    this.url = 'https://api.tvmaze.com/shows';
+  async get(url, endPoint) {
+    const res = await fetch(url + endPoint);
+    return res.json();
   }
 
-  async getData() {
-    const res = await fetch(`${this.url}`, { method: 'GET' });
-    const data = await res.json();
-    return data.slice(0, 12);
+  async post(url, endPoint, body) {
+    const res = await fetch(url + endPoint, {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': 'http://localhost:8080/',
+      },
+    });
+    return res;
   }
 }

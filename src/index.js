@@ -1,14 +1,14 @@
 import './style.css';
-import Store from './classes/api';
+import Store from './classes/store';
+import Modal from './classes/modal';
+import counter from './classes/util';
 
-const store = new Store();
+const modalData = new Modal();
+const dataStore = new Store();
+
 const main = document.querySelector('#card-list');
-const counter = document.querySelector('#counter');
-
-const updateCouner = async (data) => {
-  if (data.length === 0) return 0;
-  return data.length;
-};
+const modal = document.querySelector('#modal');
+const counterTarget = document.querySelector('#counter');
 
 const renderUi = async (data) => {
   while (main.firstChild) {
@@ -19,43 +19,41 @@ const renderUi = async (data) => {
     const {
       id, image, name, language,
     } = item;
-    return `
-    <section class="col">
-    <div class="card" id=${id}>
+
+    const html = `
+    <div class="col">
+    <div class="card h-100" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
-       <div class="d-flex flex-row bd-highlight mb-2 justify-content-between">
-        <h5 class="card-title fs-6">${name} ${id}</h5>
-        <div class="d-flex flex-column bd-highlight mb-3">
-        <i class="bi bi-heart"></i>
-        <p><span class='countlikes'></span><span>likes</span></p>
+        <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
+        <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
+        <i class="bi bi-heart">11</i>
         </div>
-       </div>
+        <div class="card-footer bg-white text-center">
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-id="${id}" onClick="() => modalData.renderModal(item)">
+        Comments
+        </button>
       </div>
-      <p>
-      <p class="px-3 bg-light border">Language: ${language}</p>
-      <button type="button" class="btn btn-secondary">comment</button>
     </div>
-    </section>`;
+    </div>`;
+    return html;
   }).join('');
   main.innerHTML = newdata;
-
-  const count = await updateCouner(data);
-  counter.innerText = count;
+  const count = counter(data);
+  counterTarget.innerText = count;
 };
 
 const initLoad = async () => {
-  const res = await store.getData();
-  renderUi(res);
+  await dataStore.getShows();
+
+  renderUi(dataStore.shows);
 };
+
+modal.addEventListener('shown.bs.modal', (e) => {
+  const currentShowId = e.relatedTarget.dataset.id;
+  dataStore.getComment(currentShowId);
+  const show = dataStore.shows.filter((item) => item.id === parseInt(currentShowId, 10))[0];
+  modalData.modalInit(currentShowId, show);
+});
 
 initLoad();
-
-// like click event
-const clicklike = document.querySelector('countlikes');
-const heart = document.querySelector('bi-heart');
-const myfunction = () => {
-  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
-};
-
-heart.addEventListener('click', myfunction);
