@@ -1,29 +1,52 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable class-methods-use-this */
+import Store from './store';
+
 export default class Modal {
   constructor() {
-    this.modal = document.querySelector('#modal');
+    this.modal = document.querySelector('.modal-content');
     this.form = document.querySelector('FORM');
+    this.modalId = null;
+    this.store = new Store();
   }
 
-  renderComments(list) {
-    const ul = document.createElement('ul');
-    ul.classList.add('list-group', 'list-group-flush');
+  async renderComments(id) {
+    try {
+      const showComments = await this.store.getComment(id);
+      const commentsCount = document.querySelector('#comments-count');
+      commentsCount.innerText = `(${await showComments.length || 0})`;
+      const ul = document.createElement('ul');
+      ul.classList.add('list-group', 'list-group-flush');
 
-    const commentItem = (email, comment) => `
+      const commentItem = (username = '', comment = '') => `
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="fw-bold">${email}</div>
+          <div class="fw-bold">${username}</div>
           ${comment}
         </div>
       </li>
     `;
 
-    list.forEach((item) => {
-      ul.innerHTML += commentItem(item.email, item.comment);
-    });
+      this.store.commments.forEach((item) => {
+        ul.innerHTML += commentItem(item.username, item.comment);
+      });
 
-    return ul;
+      return ul;
+    } catch (error) {
+      const ul = document.createElement('ul');
+      ul.classList.add('list-group', 'list-group-flush');
+
+      const commentItem = `
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            No coments yet!
+          </div>
+        </li>
+      `;
+
+      ul.innerHTML = commentItem;
+
+      return ul;
+    }
   }
 
   renderCommentForm() {
@@ -43,10 +66,18 @@ export default class Modal {
     </form>
     `;
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log(form.email.value, form.comment.value);
-      form.reset();
+      if (this.modalId !== '' && form.email.value !== '' && form.comment.value !== '') {
+        this.store.postComment({
+          item_id: this.modalId, username: form.email.value, comment: form.comment.value,
+        });
+        form.reset();
+        await this.store.getShows();
+        const data = this.store.shows.filter((item) => item.id === parseInt(this.modalId, 10));
+        this.renderComments(this.modalId);
+        this.modalInit(this.modalId, data[0]);
+      }
     });
     form.innerHTML = html;
     return form;
@@ -54,14 +85,12 @@ export default class Modal {
 
   renderModal(data) {
     const html = `
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">${data.name} <span class="fs-6 text-muted">${data.genres}</span></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="row align-items-start">
+            <div class="row align-items-start gx-2">
               <div class="col-sm-4">
                 <figure class="figure">
                   <img src="${data.image.original}" class="figure-img img-fluid rounded" alt="${data.name}">
@@ -103,7 +132,7 @@ export default class Modal {
                   </ul>
                 </div>
                 <div id="comments" class="mt3">
-                  <div class="px-3 mt-4"><h5>Commens (2)</h5></div>
+                  <div class="px-3 mt-4"><h5>Comments <span id="comments-count"></span></h5></div>
                 </div>
                 <div id="new-coment" class="mt3">
                   <div class="px-3 mt-4"><h5>Add new comment</h5></div>
@@ -114,11 +143,14 @@ export default class Modal {
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
-        </div>
-      </div>
     `;
     this.modal.innerHTML = html;
+  }
+
+  async modalInit(id, data) {
+    this.modalId = data.id;
+    this.renderModal(data);
     document.querySelector('#new-coment').append(this.renderCommentForm());
-    document.querySelector('#comments').append(this.renderComments([{ email: 'mama@mamma.com', comment: 'sadsasda asdsasad' }, { email: 'mama@mamma.com', comment: 'sadsasda asdsasad' }]));
+    document.querySelector('#comments').append(await this.renderComments(id));
   }
 }
