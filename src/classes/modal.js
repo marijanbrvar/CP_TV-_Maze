@@ -62,7 +62,7 @@ export default class Modal {
           </div>
           <div class="modal-body">
             <div class="row align-items-start">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <figure class="figure">
                   <img src="${data.image.original}" class="figure-img img-fluid rounded" alt="${data.name}">
                 </figure>
