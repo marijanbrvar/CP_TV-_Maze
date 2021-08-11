@@ -5,7 +5,8 @@ import Api from './api';
 export default class Store {
   constructor() {
     this.showsUrl = 'https://api.tvmaze.com';
-    this.involvementUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
+    this.involvementUrl =
+      'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
     this.appId = '5C88SbpqPP3Eb5tpLRl0';
     this.shows = [];
     this.commments = [];
