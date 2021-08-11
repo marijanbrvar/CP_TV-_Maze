@@ -1,6 +1,7 @@
 import './style.css';
 import Store from './classes/store';
 import Modal from './classes/modal';
+import Like from './classes/likes';
 
 const modalData = new Modal();
 const dataStore = new Store();
@@ -49,8 +50,13 @@ const renderUi = async (data) => {
 
 const initLoad = async () => {
   await dataStore.getShows();
+  await dataStore.getLikes();
 
   renderUi(dataStore.shows);
+
+  const likesCount = document.querySelectorAll('#likes');
+  const likes = new Like(likesCount);
+  likes.init();
 };
 
 modal.addEventListener('shown.bs.modal', (e) => {
