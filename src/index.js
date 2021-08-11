@@ -9,7 +9,7 @@ const main = document.querySelector('#card-list');
 const modal = document.querySelector('#modal');
 const counter = document.querySelector('#counter');
 
-const updateCouner = async (data) => {
+const updateCounter = async (data) => {
   if (data.length === 0) return 0;
   return data.length;
 };
@@ -23,44 +23,41 @@ const renderUi = async (data) => {
     const {
       id, image, name, language,
     } = item;
-    modalData.renderModal(item);
+
     const html = `
-    <div class="card" id=${id}>
+    <div class="col">
+    <div class="card h-100" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
         <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
         <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
         <i class="bi bi-heart">11</i>
-        <a type="button" class="btn btn-ligth" data-bs-toggle="modal" data-bs-target="#modal" " data-id="${id}">
-          <i class="bi bi-chat-left">
-          <span class="text-muted fs-6 fw-bolder ms-1" id="coments-count">2</span>
-          </i>
-        </a>
+        </div>
+        <div class="card-footer bg-white text-center">
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-id="${id}" onClick="() => modalData.renderModal(item)">
+        Comments
+        </button>
       </div>
-      <div class="card-footer bg-white">
-       <ul id="genre">
-       ${item.genres}
-       </ul>
-      </div>
+    </div>
     </div>`;
     return html;
   }).join('');
   main.innerHTML = newdata;
-
-  const count = await updateCouner(data);
+  const count = await updateCounter(data);
   counter.innerText = count;
 };
 
 const initLoad = async () => {
-  await dataStore.getData();
+  await dataStore.getShows();
 
   renderUi(dataStore.shows);
 };
 
 modal.addEventListener('shown.bs.modal', (e) => {
   const currentShowId = e.relatedTarget.dataset.id;
+  dataStore.getComment(currentShowId);
   const show = dataStore.shows.filter((item) => item.id === parseInt(currentShowId, 10))[0];
-  modalData.renderModal(show);
+  modalData.modalInit(currentShowId, show);
 });
 
 initLoad();
