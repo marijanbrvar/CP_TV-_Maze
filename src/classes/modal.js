@@ -119,6 +119,6 @@ export default class Modal {
     `;
     this.modal.innerHTML = html;
     document.querySelector('#new-coment').append(this.renderCommentForm());
-    document.querySelector('#comments').append(this.renderComments([{ email: 'mama@mamma.com', comment: 'sadsasda asdsasad' }]));
+    document.querySelector('#comments').append(this.renderComments([{ email: 'mama@mamma.com', comment: 'sadsasda asdsasad' }, { email: 'mama@mamma.com', comment: 'sadsasda asdsasad' }]));
   }
 }
