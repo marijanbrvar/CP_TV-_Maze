@@ -1,8 +1,8 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# JavaScript capstone project - Your API-based webapp
+# JavaScript capstone project - Your API-based web app
 
-> This JavaScript capstone project is about building our own web application based on an external API. We are select an API that provides data about a TV SHOWS topic and then build the webapp around it. The simple webapp have 2 user interfaces one with Tv Show listing and another with details and ability to leave coment:
+> This JavaScript capstone project is about building our web application based on an external API. We are select an API that provides data about a TV SHOWS topic and then build the web app around it. The simple web app has two user interfaces, one with a Tv Show listing and another with details and the ability to leave a comment:
 
 ![screenshot](./app_screenshot.png)
 
@@ -20,8 +20,8 @@
 
 ## Getting Started
 
-**When you open the application from the above link, you can find short listing of 6 TV Shows** immediately
-**On this main page you can click on 'Hart' if you like TV Show, or click on comment button to see details and and live comment.**
+**When you open the application from the above link, you can find a short listing of 6 TV Shows** immediately
+**On this main page, you can click on 'Hart' if you like TV Show, or click on the comment button to see details and live comment.**
 
 ### Prerequisites
 - Chrome browser
@@ -46,13 +46,13 @@ To run code locally, please follow steps belove
 2. run `npm install`
 3. then run `npm run start`
 
-webpack will automatically open the default browser, and you can start using the TV Show web app. All data is remotly over 3rd party API.
+webpack will automatically open the default browser, and you can start using the TV Show web app. All data is remotely over 3rd party API.
 ### Usage
-At home page pres on 'hart' and your like will be recorded
-By clicking on comment button, modal is open where you can find details as well as form to live your comment or read other people comments.
+At home page pres on 'hart' and like will be recorded
+The modal is open to finding details and the form to live your comment or read other people's comments by clicking on the comment button.
 
 ### Run tests
-To run test for add and remove task, you need to instal Jest or simply run `npm i`
+To test for add and remove a task, you need to install Jest or run `npm install'
 `npm run test`
 
 ## Authors
