@@ -4,8 +4,7 @@ import Api from './api';
 export default class Store {
   constructor() {
     this.showsUrl = 'https://api.tvmaze.com';
-    this.involvementUrl =
-      'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
+    this.involvementUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
     this.appId = '5C88SbpqPP3Eb5tpLRl0';
     this.shows = [];
     this.commments = [];
@@ -22,7 +21,7 @@ export default class Store {
     const res = await this.api.post(
       this.involvementUrl,
       `apps/${this.appId}/comments`,
-      JSON.stringify(body)
+      JSON.stringify(body),
     );
     return res;
   }
@@ -30,7 +29,7 @@ export default class Store {
   async getComment(id) {
     const res = await this.api.get(
       this.involvementUrl,
-      `apps/${this.appId}/comments?item_id=${id}`
+      `apps/${this.appId}/comments?item_id=${id}`,
     );
     if (res.length !== 0) {
       this.commments = res;
@@ -47,7 +46,7 @@ export default class Store {
   async getLikes() {
     const res = await this.api.get(
       this.involvementUrl,
-      `apps/${this.appId}/likes/`
+      `apps/${this.appId}/likes/`,
     );
     // eslint-disable-next-line max-len
     const merge = this.shows.map((show) => ({
@@ -62,7 +61,7 @@ export default class Store {
     const res = await this.api.post(
       this.involvementUrl,
       `apps/${this.appId}/likes`,
-      JSON.stringify(body)
+      JSON.stringify(body),
     );
     return res;
   }
