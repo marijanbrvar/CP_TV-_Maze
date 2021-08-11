@@ -1,7 +1,10 @@
 import './style.css';
-import Store from './classes/api';
+import Store from './classes/store';
+import Modal from './classes/modal';
 
-const store = new Store();
+const modalData = new Modal();
+const dataStore = new Store();
+
 const main = document.querySelector('#card-list');
 const modal = document.querySelector('#modal');
 const counter = document.querySelector('#counter');
@@ -20,7 +23,7 @@ const renderUi = async (data) => {
     const {
       id, image, name, language,
     } = item;
-
+    modalData.renderModal(item);
     const html = `
     <section class="col">
     <div class="card" id=${id}>
@@ -29,7 +32,7 @@ const renderUi = async (data) => {
         <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
         <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
         <i class="bi bi-heart">11</i>
-        <a type="button" class="btn btn-ligth" data-bs-toggle="modal" data-bs-target="#modal" " data-id="${item}">
+        <a type="button" class="btn btn-ligth" data-bs-toggle="modal" data-bs-target="#modal" " data-id="${id}">
           <i class="bi bi-chat-left">
           <span class="text-muted fs-6 fw-bolder ms-1" id="coments-count">2</span>
           </i>
@@ -49,26 +52,25 @@ const renderUi = async (data) => {
   counter.innerText = count;
 };
 
-const renderGenre = () => {
-  
-};
-
 const initLoad = async () => {
-  const res = await store.getData();
-  renderUi(res);
+  await dataStore.getData();
+
+  renderUi(dataStore.shows);
 };
 
 modal.addEventListener('shown.bs.modal', (e) => {
-  console.log(e.relatedTarget.dataset.id);
+  const currentShowId = e.relatedTarget.dataset.id;
+  const show = dataStore.shows.filter((item) => item.id === parseInt(currentShowId, 10))[0];
+  modalData.renderModal(show);
 });
 
 initLoad();
 
 // like click event
-const clicklike = document.querySelector('countlikes');
-const heart = document.querySelector('bi-heart');
-const myfunction = () => {
-  clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
-};
+// const clicklike = document.querySelector('countlikes');
+// const heart = document.querySelector('bi-heart');
+// const myfunction = () => {
+//   clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
+// };
 
-heart.addEventListener('click', myfunction);
+// heart.addEventListener('click', myfunction);
