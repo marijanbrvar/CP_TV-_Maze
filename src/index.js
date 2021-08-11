@@ -1,6 +1,7 @@
 import './style.css';
 import Store from './classes/store';
 import Modal from './classes/modal';
+import Like from './classes/likes';
 
 const modalData = new Modal();
 const dataStore = new Store();
@@ -19,19 +20,22 @@ const renderUi = async (data) => {
     main.removeChild(main.firstChild);
   }
 
-  const newdata = data.map((item) => {
-    const {
-      id, image, name, language,
-    } = item;
+  const newdata = data
+    .map((item) => {
+      const {
+        id, image, name, language,
+      } = item;
 
-    const html = `
+      const html = `
     <div class="col">
     <div class="card h-100" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
         <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
         <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
-        <i class="bi bi-heart">11</i>
+        <div id="likes" data-id="${id}"><span class="bi bi-heart">&nbsp${
+  item.likes || 0
+}</span></div>
         </div>
         <div class="card-footer bg-white text-center">
         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-id="${id}" onClick="() => modalData.renderModal(item)">
@@ -40,8 +44,9 @@ const renderUi = async (data) => {
       </div>
     </div>
     </div>`;
-    return html;
-  }).join('');
+      return html;
+    })
+    .join('');
   main.innerHTML = newdata;
   const count = await updateCounter(data);
   counter.innerText = count;
@@ -49,14 +54,21 @@ const renderUi = async (data) => {
 
 const initLoad = async () => {
   await dataStore.getShows();
+  await dataStore.getLikes();
 
   renderUi(dataStore.shows);
+
+  const likesCount = document.querySelectorAll('#likes');
+  const likes = new Like(likesCount);
+  likes.init();
 };
 
 modal.addEventListener('shown.bs.modal', (e) => {
   const currentShowId = e.relatedTarget.dataset.id;
   dataStore.getComment(currentShowId);
-  const show = dataStore.shows.filter((item) => item.id === parseInt(currentShowId, 10))[0];
+  const show = dataStore.shows.filter(
+    (item) => item.id === parseInt(currentShowId, 10),
+  )[0];
   modalData.modalInit(currentShowId, show);
 });
 
