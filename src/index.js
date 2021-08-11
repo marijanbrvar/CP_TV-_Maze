@@ -61,12 +61,3 @@ modal.addEventListener('shown.bs.modal', (e) => {
 });
 
 initLoad();
-
-// like click event
-// const clicklike = document.querySelector('countlikes');
-// const heart = document.querySelector('bi-heart');
-// const myfunction = () => {
-//   clicklike.innerHTML = parseInt(clicklike.innerHTML, 10) + 1;
-// };
-
-// heart.addEventListener('click', myfunction);
