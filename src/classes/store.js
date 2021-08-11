@@ -57,4 +57,13 @@ export default class Store {
     this.shows = merge;
     return res;
   }
+
+  async postLikes(body) {
+    const res = await this.api.post(
+      this.involvementUrl,
+      `apps/${this.appId}/likes`,
+      JSON.stringify(body)
+    );
+    return res;
+  }
 }
