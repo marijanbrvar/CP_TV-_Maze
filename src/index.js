@@ -51,7 +51,8 @@ const renderUi = async (data) => {
 
   const displayLikes = async () => {
     await involvement.getLikes();
-    like.innerHTML = involvement.likeData[0].likes;
+    const result = involvement.getLikes();
+    like.innerHTML = result[0].likes;
   };
 
   like.addEventListener('click', (ev) => {
