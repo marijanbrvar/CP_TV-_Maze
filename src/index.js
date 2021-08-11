@@ -25,7 +25,6 @@ const renderUi = async (data) => {
     } = item;
     modalData.renderModal(item);
     const html = `
-    <section class="col">
     <div class="card" id=${id}>
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
@@ -38,12 +37,12 @@ const renderUi = async (data) => {
           </i>
         </a>
       </div>
-      <div class="card-footer">
+      <div class="card-footer bg-white">
        <ul id="genre">
+       ${item.genres}
        </ul>
       </div>
-    </div>
-    </section>`;
+    </div>`;
     return html;
   }).join('');
   main.innerHTML = newdata;
