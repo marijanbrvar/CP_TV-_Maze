@@ -14,7 +14,7 @@ export default class Modal {
     try {
       const showComments = await this.store.getComment(id);
       const commentsCount = document.querySelector('#comments-count');
-      commentsCount.innerText = counter(showComments);
+      commentsCount.innerText = counter(showComments) || 0;
       const ul = document.createElement('ul');
       ul.classList.add('list-group', 'list-group-flush');
 
@@ -92,12 +92,38 @@ export default class Modal {
           </div>
           <div class="modal-body">
             <div class="row align-items-start gx-2">
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <figure class="figure">
                   <img src="${data.image.original}" class="figure-img img-fluid rounded" alt="${data.name}">
                 </figure>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">Language</div>
+                    ${data.language}
+                    </div>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">Rating</div>
+                    ${data.rating.average}
+                  </div>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">Genres</div>
+                    ${data.genres}
+                    </div>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">Runtime</div>
+                    ${data.runtime} min.
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div class="col">
+              <div class="col-md-6">
                 <div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -105,30 +131,6 @@ export default class Modal {
                       <div class="fw-bold">Summary</div>
                       ${data.summary}
                       </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                      <div class="fw-bold">Genres</div>
-                      ${data.genres}
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                      <div class="fw-bold">Runtime</div>
-                      ${data.runtime} min.
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                      <div class="fw-bold">Language</div>
-                      ${data.language}
-                      </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                      <div class="ms-2 me-auto">
-                      <div class="fw-bold">Rating</div>
-                      ${data.rating.average}
-                    </div>
                     </li>
                   </ul>
                 </div>
