@@ -59,7 +59,7 @@ export default class Store {
     const res = await this.api.post(
       this.involvementUrl,
       `apps/${this.appId}/likes`,
-      JSON.stringify(body)
+      JSON.stringify(body),
     );
     return res;
   }
