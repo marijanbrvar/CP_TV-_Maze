@@ -1,16 +1,17 @@
-const URL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/5C88SbpqPP3Eb5tpLRl0/likes';
+export default class Post {
+  constructor() {
+    this.baseUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
+    this.app_id = '5C88SbpqPP3Eb5tpLRl0';
+  }
 
-const postLikes = (itemid) => {
-  const params = { item_id: `${itemid}` };
-  fetch(URL, {
-    method: 'POST',
-    body: JSON.stringify(params),
-    headers: {
-      'Content-type': 'application/json',
-    }
-      .then((response) => response.json()),
-    // .then((params) => console.log('Sucess:', params)),
-  });
-};
-
-export default postLikes;
+  postLikes = async (itemid) => {
+    const params = { item_id: `${itemid}` };
+    await fetch(`${this.baseUrl}/apps/${this.app_id}/likes/`, {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+  };
+}
