@@ -9,4 +9,21 @@ export default class Involvement {
     const data = await res.json();
     return data;
   }
+
+  async postComment(itemId, username, comment) {
+    const res = await fetch(`${this.url}/apps/${this.app_id}/comments`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+        username,
+        comment,
+      }),
+    });
+
+    return res.json();
+  }
 }
