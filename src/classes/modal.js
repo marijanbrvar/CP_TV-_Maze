@@ -119,13 +119,13 @@ export default class Modal {
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                       <div class="ms-2 me-auto">
-                      <div class="fw-bold">Rating</div>
+                      <div class="fw-bold">Language</div>
                       ${data.language}
                       </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                       <div class="ms-2 me-auto">
-                      <div class="fw-bold">Language</div>
+                      <div class="fw-bold">Rating</div>
                       ${data.rating.average}
                     </div>
                     </li>
