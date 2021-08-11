@@ -1,3 +1,19 @@
-body {
-    background-color: bisque;
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.image {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+}
+
+.likes {
+  display: flex;
+  flex-direction: column;
 }
