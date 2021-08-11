@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import Store from './store';
+import counter from './util';
 
 export default class Modal {
   constructor() {
@@ -13,7 +14,7 @@ export default class Modal {
     try {
       const showComments = await this.store.getComment(id);
       const commentsCount = document.querySelector('#comments-count');
-      commentsCount.innerText = `(${await showComments.length || 0})`;
+      commentsCount.innerText = counter(showComments);
       const ul = document.createElement('ul');
       ul.classList.add('list-group', 'list-group-flush');
 

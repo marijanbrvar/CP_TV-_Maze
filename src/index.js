@@ -1,18 +1,14 @@
 import './style.css';
 import Store from './classes/store';
 import Modal from './classes/modal';
+import counter from './classes/util';
 
 const modalData = new Modal();
 const dataStore = new Store();
 
 const main = document.querySelector('#card-list');
 const modal = document.querySelector('#modal');
-const counter = document.querySelector('#counter');
-
-const updateCounter = async (data) => {
-  if (data.length === 0) return 0;
-  return data.length;
-};
+const counterTarget = document.querySelector('#counter');
 
 const renderUi = async (data) => {
   while (main.firstChild) {
@@ -43,8 +39,8 @@ const renderUi = async (data) => {
     return html;
   }).join('');
   main.innerHTML = newdata;
-  const count = await updateCounter(data);
-  counter.innerText = count;
+  const count = counter(data);
+  counterTarget.innerText = count;
 };
 
 const initLoad = async () => {

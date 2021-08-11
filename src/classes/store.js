@@ -14,7 +14,7 @@ export default class Store {
   async getShows() {
     const data = await this.api.get(this.showsUrl, '/shows');
 
-    this.shows = data.slice(0, 12);
+    this.shows = data.slice(12, 18);
   }
 
   async postComment(body) {
