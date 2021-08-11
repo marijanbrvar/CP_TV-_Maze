@@ -34,8 +34,8 @@ const renderUi = async (data) => {
         <h5 class="card-title fs-5 mb-0 pb-0">${name}</h5>
         <p class="p-0 mb-2"><small>Language:</small> ${language}</p>
         <div id="likes" data-id="${id}"><span class="bi bi-heart">&nbsp${
-        item.likes || 0
-      }</span></div>
+  item.likes || 0
+}</span></div>
         </div>
         <div class="card-footer bg-white text-center">
         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-id="${id}" onClick="() => modalData.renderModal(item)">
