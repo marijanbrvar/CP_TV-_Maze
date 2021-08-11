@@ -1,9 +1,10 @@
 import './style.css';
 import Store from './classes/api';
 import Involvement from './classes/involvement';
-import postLikes from './classes/postLikes';
+import Post from './classes/postLikes';
 
 const involvement = new Involvement();
+const post = new Post();
 const store = new Store();
 const main = document.querySelector('#card-list');
 const counter = document.querySelector('#counter');
@@ -44,23 +45,23 @@ const renderUi = async (data) => {
 
   const count = await updateCouner(data);
   counter.innerText = count;
-  const like = document.querySelector('.countlikes');
+
   const card = document.querySelector('.card');
+  const like = document.querySelector('.countlikes');
 
   const displayLikes = async () => {
     await involvement.getLikes();
-    like.innerHTML = involvement.listData.join('');
+    like.innerHTML = involvement.likeData[0].likes;
   };
-  card.addEventListener('click', (ev) => {
+
+  like.addEventListener('click', (ev) => {
     if (ev.target.id === card.id) {
       const itemId = ev.target.id;
-      postLikes(itemId);
+      post.postLikes(itemId);
       displayLikes();
     }
   });
 };
-
-involvement.getLikes();
 
 const initLoad = async () => {
   const res = await store.getData();
@@ -68,20 +69,3 @@ const initLoad = async () => {
 };
 
 initLoad();
-
-// click likes
-// const like = document.querySelector('.countlikes');
-// const card = document.querySelector('.card');
-
-// const displayLikes = async () => {
-//   await involvement.getLikes();
-//   like.innerHTML = involvement.listData.join('');
-// };
-
-// card.addEventListener('click', (ev) => {
-//   if (ev.target.id === card.id) {
-//     const itemId = ev.target.id;
-//     postLikes(itemId);
-//     displayLikes();
-//   }
-// });
