@@ -5,8 +5,10 @@ export default class Involvement {
   }
 
   async getLikes() {
-    const response = await fetch(`${this.baseUrl}/apps/${this.app_id}/likes`, { method: 'GET' });
-    const likeData = await response.json();
-    return likeData;
+    const response = await fetch(
+      `${this.baseUrl}/apps/${this.app_id}/likes`, { method: 'GET' },
+    );
+    const data = await response.json;
+    return data;
   }
 }

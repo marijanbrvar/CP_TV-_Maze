@@ -1,7 +1,7 @@
 import './style.css';
 import Store from './classes/api';
-import Involvement from './classes/involvement';
 import Post from './classes/postLikes';
+import Involvement from './classes/involvement';
 
 const involvement = new Involvement();
 const post = new Post();
@@ -29,7 +29,7 @@ const renderUi = async (data) => {
       <img src="${image.medium}" class="card-img-top">
       <div class="card-body">
         <h5 class="card-title">${name} ${id}</h5>
-        <div class="d-flex flex-row bd-highlight mb-2 justify-content-between">
+        <div class="d-flex flex-row bd-highlight mb-2 justify-content-between" id=${id}>
         <i class="bi bi-translate">${language}</i>
         <i class="bi bi-heart countlikes" id=${id}>11</i>
        </div>
@@ -46,22 +46,24 @@ const renderUi = async (data) => {
   const count = await updateCouner(data);
   counter.innerText = count;
 
-  const card = document.querySelector('.card');
   const like = document.querySelector('.countlikes');
-
-  const displayLikes = async () => {
-    await involvement.getLikes();
-    const result = involvement.getLikes();
-    like.innerHTML = result[0].likes;
-  };
-
   like.addEventListener('click', (ev) => {
-    if (ev.target.id === card.id) {
+    if (ev.target.id === ev.target.parentElement.id) {
+      console.log(like);
       const itemId = ev.target.id;
       post.postLikes(itemId);
-      displayLikes();
+      const data = initLikes();
+      ev.target.innerHTML = data;
     }
   });
+};
+
+involvement.getLikes();
+
+const initLikes = async () => {
+  await store.getLikes();
+  const result = store.like;
+  return result;
 };
 
 const initLoad = async () => {
