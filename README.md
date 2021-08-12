@@ -17,7 +17,9 @@
 
 [Live Demo Link](https://marijanbrvar.github.io/CP_TV-_Maze/)
 
+This is the video that I and my partner recorded for this project:
 
+[Video link](https://drive.google.com/file/d/1e0ZOTrk1KoGvt0ZgOJl1LX6zA3OzmOG2/view?usp=sharing)
 ## Getting Started
 
 **When you open the application from the above link, you can find a short listing of 6 TV Shows** immediately
